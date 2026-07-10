@@ -3,71 +3,173 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kahoot Auto-Bot</title>
+  <title>Kahoot • GodMode</title>
+  <script src="https://cdn.jsdelivr.net/npm/kahoot.js-updated@latest/dist/kahoot.js-updated.min.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; background: #1e1e1e; color: #fff; text-align: center; padding: 50px; }
-    input, button { padding: 12px; margin: 10px; font-size: 18px; border-radius: 8px; }
-    button { background: #00bfff; color: white; border: none; cursor: pointer; }
-    button:hover { background: #0099cc; }
-    #status { margin-top: 20px; font-size: 18px; min-height: 30px; }
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .background {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: url('https://source.unsplash.com/random/1920x1080/?neon,gaming') no-repeat center center/cover;
+      opacity: 0.15;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 80px auto;
+      padding: 40px 30px;
+      background: rgba(0, 0, 0, 0.85);
+      border: 3px solid #00ffcc;
+      border-radius: 20px;
+      box-shadow: 0 0 40px #00ffcc, 0 0 80px rgba(0, 255, 204, 0.4);
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #00ffcc, #ff00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px #00ffcc;
+    }
+
+    .subtitle {
+      color: #00ffcc;
+      margin-bottom: 40px;
+      font-size: 1.1rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 18px;
+      margin: 15px 0;
+      background: rgba(255,255,255,0.1);
+      border: 2px solid #00ffcc;
+      border-radius: 12px;
+      color: white;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #ff00ff;
+      box-shadow: 0 0 25px #ff00ff;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 18px 50px;
+      font-size: 1.4rem;
+      font-family: 'Press Start 2P', cursive;
+      background: linear-gradient(45deg, #00ffcc, #ff00ff);
+      color: black;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.4s;
+      box-shadow: 0 0 30px #00ffcc;
+    }
+
+    button:hover {
+      transform: scale(1.08) rotate(2deg);
+      box-shadow: 0 0 50px #ff00ff;
+    }
+
+    #status {
+      margin-top: 30px;
+      min-height: 80px;
+      font-size: 1.1rem;
+      padding: 15px;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .neon {
+      animation: neon 1.5s infinite alternate;
+    }
+
+    @keyframes neon {
+      from { text-shadow: 0 0 10px #00ffcc; }
+      to { text-shadow: 0 0 30px #00ffcc, 0 0 50px #ff00ff; }
+    }
   </style>
 </head>
 <body>
-  <h1>🚀 Kahoot Auto-Bot</h1>
-  <p>Gib den Kahoot-PIN und deinen Namen ein. Der Bot versucht automatisch richtig zu antworten.</p>
-
-  <input type="text" id="pin" placeholder="Kahoot PIN (z.B. 1234567)" maxlength="7">
-  <input type="text" id="name" placeholder="Dein Name / Bot-Name" value="AutoBot">
+  <div class="background"></div>
   
-  <br>
-  <button onclick="startBot()">Bot starten & beitreten</button>
+  <div class="container">
+    <h1 class="neon">KAHOOT GODMODE</h1>
+    <p class="subtitle">💀 AUTOMATISCHER CHEAT BOT 💀</p>
 
-  <div id="status"></div>
+    <input type="text" id="pin" placeholder="📌 KAHoot PIN EINGEBEN" maxlength="7">
+    <input type="text" id="name" placeholder="👤 BOT NAME" value="GodBot420">
 
-  <script src="https://cdn.jsdelivr.net/npm/kahoot.js-updated@latest/dist/kahoot.js-updated.min.js"></script>
+    <button onclick="startBot()">🚀 BOT STARTEN</button>
+
+    <div id="status"></div>
+  </div>
+
   <script>
     async function startBot() {
       const pin = document.getElementById('pin').value.trim();
-      const name = document.getElementById('name').value.trim() || "AutoBot";
+      const name = document.getElementById('name').value.trim() || "GodBot420";
       const status = document.getElementById('status');
 
       if (!pin || pin.length < 5) {
-        status.innerHTML = '<span style="color:red">❌ Ungültiger PIN!</span>';
+        status.innerHTML = '<span style="color:#ff0066">❌ Ungültiger PIN!</span>';
         return;
       }
 
-      status.innerHTML = '🔄 Verbinde mit Kahoot...';
+      status.innerHTML = '<span style="color:#00ffcc">🔄 Verbinde zum Kahoot-Server...</span>';
 
       const client = new Kahoot();
 
       client.on('Joined', () => {
-        status.innerHTML += '<br>✅ Beigetreten als <b>' + name + '</b>';
+        status.innerHTML += `<br><span style="color:#00ffcc">✅ Beigetreten als <b>${name}</b></span>`;
       });
 
       client.on('QuestionStart', question => {
-        status.innerHTML += `<br>❓ Frage gestartet – versuche korrekte Antwort...`;
+        status.innerHTML += `<br><span style="color:#ffff00">❓ Neue Frage! Antwort wird gesendet...</span>`;
         
-        // Einfache Logik: Bei bekannten Quizzes versuchen wir korrekte Antworten zu holen
-        // Für echte "immer richtig" brauchst du Quiz-ID + API oder AI (siehe unten)
-        try {
-          // Zufällig, aber mit Verzögerung für Natürlichkeit
-          setTimeout(() => {
-            question.answer(0); // Oft die erste/richtige Antwort (funktioniert bei vielen Quizzes)
-            status.innerHTML += ' → Antwort gesendet!';
-          }, Math.random() * 1500 + 800);
-        } catch(e) {}
+        setTimeout(() => {
+          try {
+            question.answer(0); // Erste Antwort (oft korrekt)
+            status.innerHTML += ` <span style="color:#00ff00">→ OK!</span>`;
+          } catch(e) {}
+        }, 600 + Math.random() * 1200);
       });
 
-      client.on('Disconnect', reason => {
-        status.innerHTML += `<br>❌ Getrennt: ${reason}`;
+      client.on('Disconnect', () => {
+        status.innerHTML += '<br><span style="color:#ff0066">Getrennt</span>';
       });
 
       try {
         await client.join(parseInt(pin), name);
       } catch (err) {
-        status.innerHTML = `<span style="color:red">Fehler beim Beitreten: ${err}</span>`;
+        status.innerHTML = `<span style="color:#ff0066">Fehler: ${err.message || err}</span>`;
       }
     }
+
+    // Enter-Taste Unterstützung
+    document.addEventListener('keypress', e => {
+      if (e.key === 'Enter') startBot();
+    });
   </script>
 </body>
 </html>
